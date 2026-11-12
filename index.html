@@ -52,4 +52,23 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere}
 
 function createCode(){
 
-const user=document.getElementById("user").va
+
+const user = document.getElementById("user").value.trim();
+if (!user) {
+  alert("Shkruaj username");
+  return;
+}
+const bytes = new Uint8Array(12);
+crypto.getRandomValues(bytes);
+const pass = Array.from(bytes, b =>
+  b.toString(16).padStart(2, "0")
+).join("");
+document.getElementById("result").textContent =
+  "Username: " + user +
+  "\nPassword: " + pass +
+  "\nVetem per testim.";
+}
+</script>
+</body>
+</html>
+
