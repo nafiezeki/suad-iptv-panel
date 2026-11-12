@@ -69,6 +69,50 @@ document.getElementById("result").textContent =
   "\nVetem per testim.";
 }
 </script>
+
+<section>
+  <h2>🌍 Kanalet e botes</h2>
+  <p>Lista M3U</p>
+  <input id="m3u" value="https://iptv-org.github.io/iptv/index.m3u">
+  <button onclick="loadTV()">Hap kanalet</button>
+  <p id="status"></p>
+  <div id="channels"></div>
+  <video id="player" controls playsinline
+    style="width:100%;margin-top:15px"></video>
+</section>
+<script>
+async function loadTV() {
+  const status = document.getElementById("status");
+  const channels = document.getElementById("channels");
+  channels.innerHTML = "";
+  status.textContent = "Duke ngarkuar...";
+  try {
+    const url = document.getElementById("m3u").value;
+    const response = await fetch(url);
+    if (!response.ok) throw Error("Lista nuk u hap");
+    const lines = (await response.text()).split(/\r?\n/);
+    let count = 0;
+    for (let i = 0; i < lines.length - 1 && count < 200; i++) {
+      if (!lines[i].startsWith("#EXTINF:")) continue;
+      const name = lines[i].split(",").slice(1).join(",") || "Kanal";
+      const stream = lines[i + 1].trim();
+      if (!stream.startsWith("https://")) continue;
+      const btn = document.createElement("button");
+      btn.textContent = name;
+      btn.onclick = () => {
+        const player = document.getElementById("player");
+        player.src = stream;
+        player.play().catch(() => {});
+      };
+      channels.appendChild(btn);
+      count++;
+    }
+    status.textContent = count + " kanale u gjeten";
+  } catch (e) {
+    status.textContent = "Lista nuk u ngarkua ne Safari.";
+  }
+}
+</script>
 </body>
 </html>
 
