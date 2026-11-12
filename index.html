@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html lang="sq">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>SUAD IPTV Panel</title>
+
+<style>
+
+body{font-family:Arial;background:#101827;color:white;padding:20px}
+
+main{max-width:450px;margin:auto}
+
+section{background:#202d42;padding:20px;border-radius:15px}
+
+input,button{box-sizing:border-box;width:100%;padding:13px;margin:8px 0;border:0;border-radius:8px}
+
+button{background:#17bd85;color:white;font-weight:bold}
+
+pre{white-space:pre-wrap;overflow-wrap:anywhere}
+
+</style>
+
+</head>
+
+<body>
+
+<main>
+
+<h1>📺 SUAD IPTV</h1>
+
+<section>
+
+<h3>Panel personal - Test</h3>
+
+<input id="user" placeholder="Username">
+
+<button onclick="createCode()">Krijo kod testues</button>
+
+<pre id="result"></pre>
+
+</section>
+
+</main>
+
+<script>
+
+function createCode(){
+
+const user=document.getElementById("user").va
