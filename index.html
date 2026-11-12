@@ -114,5 +114,49 @@ async function loadTV() {
 }
 </script>
 </body>
+<script>
+(async function () {
+  const input = document.getElementById("m3u");
+  if (!input) return;
+
+  const select = document.createElement("select");
+  select.style.cssText =
+    "width:100%;padding:14px;margin:10px 0;border-radius:8px";
+
+  select.add(new Option("🌍 Krejt bota", "all"));
+  input.before(select);
+
+  try {
+    const response = await fetch(
+      "https://iptv-org.github.io/api/countries.json"
+    );
+    if (!response.ok) throw Error("Gabim");
+
+    const countries = await response.json();
+    countries.sort((a,b) => a.name.localeCompare(b.name));
+
+    for (const country of countries) {
+      if (country.code) {
+        select.add(new Option(country.name, country.code.toLowerCase()));
+      }
+    }
+  } catch(e) {
+    select.add(new Option("Shqipëri", "al"));
+    select.add(new Option("Kosovë", "xk"));
+    select.add(new Option("Belgjikë", "be"));
+    select.add(new Option("Amerikë", "us"));
+  }
+
+  select.onchange = function () {
+    input.value = select.value === "all"
+      ? "https://iptv-org.github.io/iptv/index.m3u"
+      : "https://iptv-org.github.io/iptv/countries/" +
+        select.value + ".m3u";
+    document.getElementById("channels").innerHTML = "";
+    document.getElementById("status").textContent = "";
+  };
+})();
+</script>
+</body>
 </html>
 
