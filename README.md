@@ -1,2 +1,2 @@
 # suad-iptv-panel
-Paneli im IPTV per testim
+📺 SUAD IPTV – Paneli im personal me kanale nga e gjithë bota 🌍
